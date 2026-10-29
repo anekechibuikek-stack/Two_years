@@ -66,7 +66,7 @@ export function Notebook() {
       </Link>
       <article className="notebook">
         <span className="notebook-holes" aria-hidden="true" />
-        <p className="notebook-date">{memory.date}</p>
+        {memory.date !== memory.title && <p className="notebook-date">{memory.date}</p>}
         <h1>{memory.title}</h1>
         <div className="notebook-body">
           {memory.entry.map((paragraph, index) => (

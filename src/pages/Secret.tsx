@@ -1,15 +1,8 @@
-import { Navigate } from "react-router-dom";
 import { story } from "../content/story";
-import { useProgress } from "../lib/progress";
 import { useTitle } from "../lib/use-title";
 
 export function Secret() {
-  const { progress } = useProgress();
   useTitle("A secret page");
-
-  if (progress.hunt.length < story.hunt.items.length) {
-    return <Navigate to="/hunt" replace />;
-  }
 
   return (
     <section className="secret">

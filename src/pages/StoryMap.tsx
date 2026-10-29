@@ -27,11 +27,11 @@ const CHAPTERS = [
     goal: "puzzle" as const,
   },
   {
-    to: "/hunt",
+    to: "/trips",
     kicker: "Chapter 5",
-    title: "The treasure hunt",
-    blurb: "Little hearts, and one page that isn’t on this map.",
-    goal: "hunt" as const,
+    title: "Our trips",
+    blurb: "Every picture, sliding past in a new order.",
+    goal: "trips" as const,
   },
   {
     to: "/notes",
@@ -40,13 +40,6 @@ const CHAPTERS = [
     blurb: "Cards you can turn over.",
     goal: "notes" as const,
   },
-];
-
-const EXTRAS = [
-  { to: "/wrapped", title: "Our wrapped", blurb: "Two years, counted softly." },
-  { to: "/jar", title: "The jar", blurb: "Folded notes. Pull one." },
-  { to: "/game", title: "A tiny game", blurb: "Hearts, alarms, a prize." },
-  { to: "/later", title: "A letter for later", blurb: "Sealed until a future anniversary." },
 ];
 
 export function StoryMap() {
@@ -103,18 +96,6 @@ export function StoryMap() {
           )}
         </li>
       </ol>
-
-      <div className="extras">
-        <h2>{story.map.extrasTitle}</h2>
-        <div className="extra-grid">
-          {EXTRAS.map((extra) => (
-            <Link key={extra.to} to={extra.to} className="extra-card">
-              <span>{extra.title}</span>
-              <small>{extra.blurb}</small>
-            </Link>
-          ))}
-        </div>
-      </div>
       </div>
 
       <button

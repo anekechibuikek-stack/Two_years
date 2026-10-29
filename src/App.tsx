@@ -6,7 +6,6 @@ import { Agreement } from "./pages/Agreement";
 import { Login } from "./pages/Login";
 import { Finale } from "./pages/Finale";
 import { HeartGame } from "./pages/HeartGame";
-import { Hunt } from "./pages/Hunt";
 import { Invitation } from "./pages/Invitation";
 import { Jar } from "./pages/Jar";
 import { Later } from "./pages/Later";
@@ -18,6 +17,7 @@ import { Quiz } from "./pages/Quiz";
 import { Secret } from "./pages/Secret";
 import { StoryMap } from "./pages/StoryMap";
 import { Timeline } from "./pages/Timeline";
+import { Trips } from "./pages/Trips";
 import { Wrapped } from "./pages/Wrapped";
 
 export function App() {
@@ -42,7 +42,7 @@ export function App() {
             <Route path="/story/:memoryId" element={<Notebook />} />
             <Route path="/quiz" element={<Quiz />} />
             <Route path="/puzzle" element={<Puzzle />} />
-            <Route path="/hunt" element={<Hunt />} />
+            <Route path="/trips" element={<Trips />} />
             <Route path="/notes" element={<LoveNotes />} />
             <Route path="/secret" element={<Secret />} />
             <Route path="/finale" element={<Finale />} />

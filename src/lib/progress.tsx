@@ -18,6 +18,7 @@ export type Progress = {
   quizComplete: boolean;
   puzzleComplete: boolean;
   hunt: string[];
+  tripsSeen: boolean;
   notes: string[];
   gameWon: boolean;
   jar: string[];
@@ -30,6 +31,7 @@ const initial: Progress = {
   quizComplete: false,
   puzzleComplete: false,
   hunt: [],
+  tripsSeen: false,
   notes: [],
   gameWon: false,
   jar: [],
@@ -65,15 +67,15 @@ export function goals(progress: Progress) {
   const memories = progress.memories.length >= memoryNeed;
   const quiz = progress.quizComplete;
   const puzzle = progress.puzzleComplete;
-  const hunt = progress.hunt.length >= story.hunt.items.length;
+  const trips = Boolean(progress.tripsSeen);
   const notes = progress.notes.length >= noteNeed;
   return {
     memories,
     quiz,
     puzzle,
-    hunt,
+    trips,
     notes,
-    ready: memories && quiz && puzzle && hunt && notes,
+    ready: memories && quiz && puzzle && notes,
     memoryNeed,
     noteNeed,
   };
@@ -86,6 +88,7 @@ type ProgressApi = {
   markCorrect: (id: string) => void;
   completeQuiz: () => void;
   completePuzzle: () => void;
+  seeTrips: () => void;
   findHunt: (id: string) => void;
   flipNote: (id: string) => void;
   winGame: () => void;
@@ -123,6 +126,10 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
     setProgress((p) => ({ ...p, puzzleComplete: true }));
   }, []);
 
+  const seeTrips = useCallback(() => {
+    setProgress((p) => ({ ...p, tripsSeen: true }));
+  }, []);
+
   const findHunt = useCallback((id: string) => {
     setProgress((p) => ({ ...p, hunt: add(p.hunt, id) }));
   }, []);
@@ -155,6 +162,7 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
       markCorrect,
       completeQuiz,
       completePuzzle,
+      seeTrips,
       findHunt,
       flipNote,
       winGame,
@@ -169,6 +177,7 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
       markCorrect,
       completeQuiz,
       completePuzzle,
+      seeTrips,
       findHunt,
       flipNote,
       winGame,

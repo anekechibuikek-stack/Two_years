@@ -11,7 +11,7 @@ const TITLES: Record<string, string> = {
   "/story": "Our story",
   "/quiz": "The quiz",
   "/puzzle": "The puzzle",
-  "/hunt": "Treasure hunt",
+  "/trips": "Our trips",
   "/notes": "Love notes",
   "/secret": "A secret",
   "/finale": "The ending",
@@ -26,6 +26,7 @@ export function Frame() {
   const reduce = useReducedMotion();
   const { progress } = useProgress();
   const home = location.pathname === "/";
+  const onTrips = location.pathname === "/trips";
   const audioRef = useRef<HTMLAudioElement>(null);
   const [muted, setMuted] = useState(() => localStorage.getItem("two-years-mute") === "1");
   const [playing, setPlaying] = useState(false);
@@ -44,7 +45,7 @@ export function Frame() {
   const tone =
     location.pathname === "/wrapped" ? "tone-wine" : location.pathname === "/game" ? "tone-night" : "";
   const status = goals(progress);
-  const hearts = [status.memories, status.quiz, status.puzzle, status.hunt, status.notes];
+  const hearts = [status.memories, status.quiz, status.puzzle, status.trips, status.notes];
 
   return (
     <div className={cx("sheet", tone)}>
@@ -94,15 +95,17 @@ export function Frame() {
                 </button>
               </>
             )}
-            <button
-              type="button"
-              className="icon-btn"
-              aria-pressed={muted}
-              aria-label={muted ? "Turn sound on" : "Turn sound off"}
-              onClick={() => setMuted((value) => !value)}
-            >
-              {muted ? "Sound" : "Mute"}
-            </button>
+            {story.song && (
+              <button
+                type="button"
+                className="icon-btn"
+                aria-pressed={muted}
+                aria-label={muted ? "Turn sound on" : "Turn sound off"}
+                onClick={() => setMuted((value) => !value)}
+              >
+                {muted ? "Sound" : "Mute"}
+              </button>
+            )}
           </div>
         </header>
       )}
@@ -118,6 +121,16 @@ export function Frame() {
           <Outlet />
         </motion.div>
       </AnimatePresence>
+      {onTrips && story.spotify && (
+        <div className="spotify-player">
+          <iframe
+            title="Those Eyes by New West"
+            src={story.spotify}
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy"
+          />
+        </div>
+      )}
     </div>
   );
 }

@@ -63,6 +63,7 @@ export function Puzzle() {
   const drag = useRef<{ id: number; moved: boolean } | null>(null);
   const skipSlotClick = useRef(false);
   const celebrated = useRef(false);
+  const [noteOpen, setNoteOpen] = useState(false);
   const image = story.puzzle.image || "/illustrations/together.svg";
 
   useTitle(story.puzzle.title);
@@ -73,6 +74,7 @@ export function Puzzle() {
     celebrated.current = true;
     completePuzzle();
     setSolved(true);
+    setNoteOpen(true);
     setSelected(null);
     chime("done");
   }, [board, completePuzzle, solved]);
@@ -209,6 +211,7 @@ export function Puzzle() {
           className="btn secondary"
           onClick={() => {
             celebrated.current = false;
+            setNoteOpen(false);
             setSolved(false);
             setBoard(freshBoard());
           }}
@@ -227,6 +230,25 @@ export function Puzzle() {
             ...sliceStyle(ghost.id, image),
           }}
         />
+      )}
+      {noteOpen && (
+        <div className="puzzle-note" role="dialog" aria-modal="true" aria-labelledby="puzzle-note-title">
+          <button
+            type="button"
+            className="puzzle-note-backdrop"
+            aria-label={story.puzzle.note.close}
+            onClick={() => setNoteOpen(false)}
+          />
+          <div className="puzzle-note-card">
+            <h2 id="puzzle-note-title">{story.puzzle.note.title}</h2>
+            {story.puzzle.note.paragraphs.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
+            <button type="button" className="btn" onClick={() => setNoteOpen(false)}>
+              {story.puzzle.note.close}
+            </button>
+          </div>
+        </div>
       )}
     </section>
   );

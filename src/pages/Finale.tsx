@@ -10,7 +10,6 @@ const LINKS = [
   { goal: "memories" as const, to: "/story", label: "the timeline" },
   { goal: "quiz" as const, to: "/quiz", label: "the quiz" },
   { goal: "puzzle" as const, to: "/puzzle", label: "the puzzle" },
-  { goal: "hunt" as const, to: "/hunt", label: "the treasure hunt" },
   { goal: "notes" as const, to: "/notes", label: "the love notes" },
 ];
 
